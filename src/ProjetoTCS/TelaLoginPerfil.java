@@ -5,6 +5,9 @@
 package ProjetoTCS;
 
 import java.awt.Insets;
+import javax.swing.JOptionPane;
+import java.sql.*;
+import AcessoDados.AcessoDados;
 
 /**
  *
@@ -14,13 +17,42 @@ public class TelaLoginPerfil extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginPerfil.class.getName());
 
-    /**
-     * Creates new form TelaLoginPerfil
-     */
+    Connection conexao = null; //variável da conexão
+    PreparedStatement pst = null; //variável que pega os comandos e executa
+    ResultSet rs = null; //variável que pega o resultado do comando
+    
+    
+    public void fazLogin(){
+        //string sql para pegar os valores
+        String sql = "SELECT * FROM dbaustra.t_usuarios WHERE dsEmail= ? AND dsSenha= ?;";
+        //acesso no sistema com conta
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1,txtEmail.getText());
+            pst.setString(2,txtSenha.getText());
+            //pega os comandos e define o resultado
+            rs = pst.executeQuery();
+            //o que a consulta vai fazer
+            if (rs.next()){
+                //coloca o nome no menu
+                TelaHome.mnPerfil.setText(rs.getString(2));
+                TelaHome.btnHomeCadastro.setEnabled(true);
+                this.dispose();
+            }else {
+                JOptionPane.showMessageDialog(this, "Email ou usuário não cadastrados no sistema.");
+                txtEmail.setText("");
+                txtSenha.setText("");
+            }
+        }catch (Exception varERRO) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados nessa tela: " +varERRO.toString());
+            System.out.println("Erro no banco de dados nessa tela: " +varERRO.toString());
+        }
+    }
+    
     public TelaLoginPerfil() {
         initComponents();
-        txtEmail.setMargin(new Insets(3,7,3,7));
-        txtSenha.setMargin(new Insets(3,7,3,7));
+        //txtEmail.setMargin(new Insets(3,7,3,7));
+        //txtSenha.setMargin(new Insets(3,7,3,7));
     }
 
     /**
@@ -143,6 +175,7 @@ public class TelaLoginPerfil extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
+        fazLogin();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -190,7 +223,7 @@ public class TelaLoginPerfil extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JMenu mnMyCamping;
     private javax.swing.JPanel pnLogin;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JPasswordField txtSenha;
+    public javax.swing.JTextField txtEmail;
+    public javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
