@@ -18,6 +18,7 @@ public class TelaHome extends javax.swing.JFrame {
      */
     public TelaHome() {
         initComponents();
+        btnHomeCadastro.setEnabled(false);
     }
 
     /**
@@ -42,9 +43,9 @@ public class TelaHome extends javax.swing.JFrame {
         mnHome = new javax.swing.JMenu();
         mnPontos = new javax.swing.JMenu();
         mnMarketplace = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnBreve = new javax.swing.JMenuItem();
         mnDicas = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnBreveDicas = new javax.swing.JMenuItem();
         mnSobre = new javax.swing.JMenu();
         mnPerfil = new javax.swing.JMenu();
 
@@ -169,13 +170,13 @@ public class TelaHome extends javax.swing.JFrame {
         mnMarketplace.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         mnMarketplace.setOpaque(true);
 
-        jMenuItem1.setText("Em Breve!");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnBreve.setText("Em Breve!");
+        mnBreve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnBreveActionPerformed(evt);
             }
         });
-        mnMarketplace.add(jMenuItem1);
+        mnMarketplace.add(mnBreve);
 
         barraMenu.add(mnMarketplace);
 
@@ -185,13 +186,13 @@ public class TelaHome extends javax.swing.JFrame {
         mnDicas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         mnDicas.setOpaque(true);
 
-        jMenuItem2.setText("Em Breve!");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mnBreveDicas.setText("Em Breve!");
+        mnBreveDicas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mnBreveDicasActionPerformed(evt);
             }
         });
-        mnDicas.add(jMenuItem2);
+        mnDicas.add(mnBreveDicas);
 
         barraMenu.add(mnDicas);
 
@@ -209,6 +210,16 @@ public class TelaHome extends javax.swing.JFrame {
         mnPerfil.setToolTipText("");
         mnPerfil.setMargin(new java.awt.Insets(3, 280, 3, 6));
         mnPerfil.setOpaque(true);
+        mnPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnPerfilMouseClicked(evt);
+            }
+        });
+        mnPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnPerfilActionPerformed(evt);
+            }
+        });
         barraMenu.add(mnPerfil);
 
         setJMenuBar(barraMenu);
@@ -228,13 +239,13 @@ public class TelaHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHomeCadastroActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mnBreveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBreveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnBreveActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void mnBreveDicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBreveDicasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_mnBreveDicasActionPerformed
 
     private void mnPontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPontosActionPerformed
         // TODO add your handling code here:
@@ -245,6 +256,16 @@ public class TelaHome extends javax.swing.JFrame {
         TelaPontos tlpontos = new TelaPontos();
         tlpontos.setVisible(true);
     }//GEN-LAST:event_mnPontosMouseClicked
+
+    private void mnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPerfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnPerfilActionPerformed
+
+    private void mnPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnPerfilMouseClicked
+        // TODO add your handling code here:
+        TelaLoginPerfil tlLoginPerfil = new TelaLoginPerfil();
+        tlLoginPerfil.setVisible(true);
+    }//GEN-LAST:event_mnPerfilMouseClicked
 
     /**
      * @param args the command line arguments
@@ -283,20 +304,20 @@ public class TelaHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton btnHomeCadastro;
+    public static javax.swing.JButton btnHomeCadastro;
     private javax.swing.JButton btnHomeConsulta;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lblBemVindo;
     private javax.swing.JLabel lblMyCamping;
     private javax.swing.JLabel lblPainelHome;
     private javax.swing.JLabel lblQuestao;
     private javax.swing.JLabel lblThumbHome;
+    private javax.swing.JMenuItem mnBreve;
+    private javax.swing.JMenuItem mnBreveDicas;
     private javax.swing.JMenu mnDicas;
     private javax.swing.JMenu mnHome;
     private javax.swing.JMenu mnMarketplace;
     private javax.swing.JMenu mnMyCamping;
-    private javax.swing.JMenu mnPerfil;
+    public static javax.swing.JMenu mnPerfil;
     private javax.swing.JMenu mnPontos;
     private javax.swing.JMenu mnSobre;
     private javax.swing.JPanel pnPainelHome;

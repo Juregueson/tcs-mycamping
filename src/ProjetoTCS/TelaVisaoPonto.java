@@ -55,7 +55,7 @@ public class TelaVisaoPonto extends javax.swing.JFrame {
         txaDescricao = new javax.swing.JTextArea();
         lblLocalizacao = new javax.swing.JLabel();
         lblMapa = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnRetornar = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         mnMyCamping = new javax.swing.JMenu();
         mnHome = new javax.swing.JMenu();
@@ -183,9 +183,13 @@ public class TelaVisaoPonto extends javax.swing.JFrame {
         lblMapa.setText("jLabel1");
         pnVisaoPonto.add(lblMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1490, 940, 330));
 
-        jButton2.setText("Retornar");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        pnVisaoPonto.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        btnRetornar.setBackground(new java.awt.Color(245, 122, 0));
+        btnRetornar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRetornar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRetornar.setText("Retornar");
+        btnRetornar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        btnRetornar.addActionListener(this::btnRetornarActionPerformed);
+        pnVisaoPonto.add(btnRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 90, 30));
 
         spVisaoPonto.setViewportView(pnVisaoPonto);
 
@@ -302,10 +306,9 @@ public class TelaVisaoPonto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgendarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetornarActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRetornarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,7 +340,7 @@ public class TelaVisaoPonto extends javax.swing.JFrame {
     private javax.swing.JButton btnAgendar;
     private javax.swing.JButton btnImgAnterior;
     private javax.swing.JButton btnImgProximo;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnRetornar;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lblCaracteristicas;
@@ -356,7 +359,7 @@ public class TelaVisaoPonto extends javax.swing.JFrame {
     private javax.swing.JMenu mnHome;
     private javax.swing.JMenu mnMarketplace;
     private javax.swing.JMenu mnMyCamping;
-    private javax.swing.JMenu mnPerfil;
+    public static javax.swing.JMenu mnPerfil;
     private javax.swing.JMenu mnPontos;
     private javax.swing.JMenu mnSobre;
     private javax.swing.JPanel pnVisaoPonto;

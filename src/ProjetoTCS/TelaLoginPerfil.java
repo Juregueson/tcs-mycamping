@@ -35,7 +35,11 @@ public class TelaLoginPerfil extends javax.swing.JFrame {
             //o que a consulta vai fazer
             if (rs.next()){
                 //coloca o nome no menu
-                TelaHome.mnPerfil.setText(rs.getString(2));
+                JOptionPane.showMessageDialog(this, "Login bem sucedido!");
+                TelaHome.mnPerfil.setText(rs.getString(3));
+                //FAZER O NOME DO PERFIL ATUALIZAR EM TODAS AS TELAS
+                //TelaPontos.mnPerfil.setText(rs.getString(3));
+                //TelaVisaoPonto.mnPerfil.setText(rs.getString(3));
                 TelaHome.btnHomeCadastro.setEnabled(true);
                 this.dispose();
             }else {
@@ -53,6 +57,7 @@ public class TelaLoginPerfil extends javax.swing.JFrame {
         initComponents();
         //txtEmail.setMargin(new Insets(3,7,3,7));
         //txtSenha.setMargin(new Insets(3,7,3,7));
+        conexao = AcessoDados.conector();
     }
 
     /**
@@ -111,6 +116,7 @@ public class TelaLoginPerfil extends javax.swing.JFrame {
         btnCadastrar.setBackground(new java.awt.Color(245, 122, 0));
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnCadastrar.addActionListener(this::btnCadastrarActionPerformed);
         pnLogin.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 460, 260, 60));
 
         btnEsqueci.setBackground(new java.awt.Color(46, 77, 48));
@@ -186,6 +192,12 @@ public class TelaLoginPerfil extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("apertado");
     }//GEN-LAST:event_btnEsqueciActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+        TelaCadastroPerfil tlCadPerfil = new TelaCadastroPerfil();
+        tlCadPerfil.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments

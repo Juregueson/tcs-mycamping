@@ -1015,7 +1015,7 @@ public class TelaPontos extends javax.swing.JFrame {
     private javax.swing.JMenu mnHome;
     private javax.swing.JMenu mnMarketplace;
     private javax.swing.JMenu mnMyCamping;
-    private javax.swing.JMenu mnPerfil;
+    public static javax.swing.JMenu mnPerfil;
     private javax.swing.JMenu mnPontos;
     private javax.swing.JMenu mnSobre;
     private javax.swing.JPanel pnPontos;

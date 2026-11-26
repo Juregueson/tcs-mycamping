@@ -17,6 +17,7 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
      */
     public TelaCadastroPonto() {
         initComponents();
+        scpCadastroPonto.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     /**
@@ -28,21 +29,239 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        scpCadastroPonto = new javax.swing.JScrollPane();
+        pnCadastroPonto = new javax.swing.JPanel();
+        txtLocalizacao = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtCNPJ = new javax.swing.JTextField();
+        txtContato = new javax.swing.JTextField();
+        btnRetornar = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        scpDescricao = new javax.swing.JScrollPane();
+        txaDescricao = new javax.swing.JTextArea();
+        scpCaracteristicas = new javax.swing.JScrollPane();
+        lstCaracteristicas = new javax.swing.JList<>();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        lblDescricao = new javax.swing.JLabel();
+        lblContato = new javax.swing.JLabel();
+        lblDescricao2 = new javax.swing.JLabel();
+        lblDescricao1 = new javax.swing.JLabel();
+        lblMapa = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
+        lblLocalizacao = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblCNPJ = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblFundo = new javax.swing.JLabel();
+        barraMenu = new javax.swing.JMenuBar();
+        mnMyCamping = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de ponto");
+        setPreferredSize(new java.awt.Dimension(900, 1050));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        scpCadastroPonto.setPreferredSize(new java.awt.Dimension(900, 690));
+        scpCadastroPonto.setViewportView(pnCadastroPonto);
 
-        pack();
+        pnCadastroPonto.setBackground(new java.awt.Color(252, 247, 232));
+        pnCadastroPonto.setMinimumSize(new java.awt.Dimension(900, 650));
+        pnCadastroPonto.setPreferredSize(new java.awt.Dimension(900, 1290));
+        pnCadastroPonto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtLocalizacao.setBackground(new java.awt.Color(252, 247, 232));
+        txtLocalizacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLocalizacao.setText("A localização, com rua, cidade, número, bairro, ou coordenadas");
+        txtLocalizacao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtLocalizacao.addActionListener(this::txtLocalizacaoActionPerformed);
+        pnCadastroPonto.add(txtLocalizacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 380, 50));
+
+        txtNome.setBackground(new java.awt.Color(252, 247, 232));
+        txtNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNome.setText("Insira o nome do seu ponto");
+        txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtNome.addActionListener(this::txtNomeActionPerformed);
+        pnCadastroPonto.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 380, 50));
+
+        txtEmail.setBackground(new java.awt.Color(252, 247, 232));
+        txtEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtEmail.setText("Insira o E-mail relacionado ao local");
+        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtEmail.addActionListener(this::txtEmailActionPerformed);
+        pnCadastroPonto.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 380, 50));
+
+        txtCNPJ.setBackground(new java.awt.Color(252, 247, 232));
+        txtCNPJ.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCNPJ.setText("Insira seu CNPJ");
+        txtCNPJ.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtCNPJ.addActionListener(this::txtCNPJActionPerformed);
+        pnCadastroPonto.add(txtCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 380, 50));
+
+        txtContato.setBackground(new java.awt.Color(252, 247, 232));
+        txtContato.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtContato.setText("Insira o contato relacionado ao local");
+        txtContato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtContato.addActionListener(this::txtContatoActionPerformed);
+        pnCadastroPonto.add(txtContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 380, 50));
+
+        btnRetornar.setBackground(new java.awt.Color(252, 247, 232));
+        btnRetornar.setText("Retornar");
+        btnRetornar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        btnRetornar.addActionListener(this::btnRetornarActionPerformed);
+        pnCadastroPonto.add(btnRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 90, 30));
+
+        btnCadastrar.setBackground(new java.awt.Color(245, 122, 0));
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnCadastroPonto.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1110, 260, 60));
+
+        scpDescricao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        txaDescricao.setBackground(new java.awt.Color(252, 247, 232));
+        txaDescricao.setColumns(20);
+        txaDescricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txaDescricao.setLineWrap(true);
+        txaDescricao.setRows(5);
+        txaDescricao.setText("Insira aqui a descrição de como seu ponto é, o que possui, etc, que atraia as pessoas para o seu local\n");
+        txaDescricao.setBorder(null);
+        scpDescricao.setViewportView(txaDescricao);
+
+        pnCadastroPonto.add(scpDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 380, 330));
+
+        scpCaracteristicas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        lstCaracteristicas.setBackground(new java.awt.Color(252, 247, 232));
+        lstCaracteristicas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lstCaracteristicas.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        scpCaracteristicas.setViewportView(lstCaracteristicas);
+
+        pnCadastroPonto.add(scpCaracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 380, 330));
+
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setText("O seu ponto vai ter agendamento?");
+        pnCadastroPonto.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 910, 320, 40));
+
+        lblDescricao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDescricao.setForeground(new java.awt.Color(255, 255, 255));
+        lblDescricao.setText("Características do seu ponto:");
+        pnCadastroPonto.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 450, -1, -1));
+
+        lblContato.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblContato.setForeground(new java.awt.Color(255, 255, 255));
+        lblContato.setText("Contato:");
+        pnCadastroPonto.add(lblContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+
+        lblDescricao2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDescricao2.setForeground(new java.awt.Color(255, 255, 255));
+        lblDescricao2.setText("Fotos:");
+        pnCadastroPonto.add(lblDescricao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 820, -1, -1));
+
+        lblDescricao1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDescricao1.setForeground(new java.awt.Color(255, 255, 255));
+        lblDescricao1.setText("Descrição do seu ponto:");
+        pnCadastroPonto.add(lblDescricao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, -1, -1));
+
+        lblMapa.setText("MAPA");
+        lblMapa.setOpaque(true);
+        pnCadastroPonto.add(lblMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 380, 180));
+
+        lblNome.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(255, 255, 255));
+        lblNome.setText("Nome do local:");
+        pnCadastroPonto.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, -1));
+
+        lblLocalizacao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblLocalizacao.setForeground(new java.awt.Color(255, 255, 255));
+        lblLocalizacao.setText("Localização");
+        pnCadastroPonto.add(lblLocalizacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
+
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmail.setText("E-mail:");
+        pnCadastroPonto.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+
+        lblCNPJ.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCNPJ.setForeground(new java.awt.Color(255, 255, 255));
+        lblCNPJ.setText("CNPJ:");
+        pnCadastroPonto.add(lblCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+
+        jLabel1.setText("INSERÇÃO DAS FOTOS");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnCadastroPonto.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 850, 380, 270));
+
+        lblTitulo.setBackground(new java.awt.Color(245, 122, 0));
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("CADASTRO DO PONTO");
+        lblTitulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblTitulo.setOpaque(true);
+        pnCadastroPonto.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 12, 810, 40));
+
+        lblFundo.setBackground(new java.awt.Color(46, 108, 57));
+        lblFundo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblFundo.setOpaque(true);
+        pnCadastroPonto.add(lblFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 12, 810, 1210));
+
+        scpCadastroPonto.setViewportView(pnCadastroPonto);
+
+        getContentPane().add(scpCadastroPonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 690));
+
+        barraMenu.setBackground(new java.awt.Color(46, 108, 57));
+        barraMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        barraMenu.setMargin(new java.awt.Insets(0, 250, 0, 0));
+        barraMenu.setOpaque(true);
+        barraMenu.setPreferredSize(new java.awt.Dimension(578, 47));
+
+        mnMyCamping.setBackground(new java.awt.Color(46, 108, 57));
+        mnMyCamping.setForeground(new java.awt.Color(245, 122, 0));
+        mnMyCamping.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logolaranjamenu.jpeg"))); // NOI18N
+        mnMyCamping.setText("MyCamping");
+        mnMyCamping.setFocusable(false);
+        mnMyCamping.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        mnMyCamping.setMargin(new java.awt.Insets(3, 6, 3, 1000));
+        mnMyCamping.setMinimumSize(new java.awt.Dimension(25, 27));
+        mnMyCamping.setOpaque(true);
+        mnMyCamping.setRequestFocusEnabled(false);
+        mnMyCamping.setRolloverEnabled(false);
+        barraMenu.add(mnMyCamping);
+
+        setJMenuBar(barraMenu);
+
+        setSize(new java.awt.Dimension(916, 704));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtLocalizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocalizacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLocalizacaoActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void btnRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetornarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRetornarActionPerformed
+
+    private void txtCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCNPJActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCNPJActionPerformed
+
+    private void txtContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContatoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +289,33 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnRetornar;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblCNPJ;
+    private javax.swing.JLabel lblContato;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblDescricao1;
+    private javax.swing.JLabel lblDescricao2;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblFundo;
+    private javax.swing.JLabel lblLocalizacao;
+    private javax.swing.JLabel lblMapa;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JList<String> lstCaracteristicas;
+    private javax.swing.JMenu mnMyCamping;
+    private javax.swing.JPanel pnCadastroPonto;
+    private javax.swing.JScrollPane scpCadastroPonto;
+    private javax.swing.JScrollPane scpCaracteristicas;
+    private javax.swing.JScrollPane scpDescricao;
+    private javax.swing.JTextArea txaDescricao;
+    private javax.swing.JTextField txtCNPJ;
+    private javax.swing.JTextField txtContato;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtLocalizacao;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
