@@ -4,6 +4,10 @@ package ProjetoTCS;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import AcessoDados.AcessoDados;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 public class TelaCadastroPerfil extends javax.swing.JFrame {
     
@@ -23,9 +27,56 @@ public class TelaCadastroPerfil extends javax.swing.JFrame {
         txtCPF.requestFocus();
     }
     
+    public boolean validaEmail(String strEmail) {
+        return strEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    }
+        
+    public boolean validaCPF(String strCPF) {
+        strCPF = strCPF.replaceAll("\\D", "");
+        if (strCPF.length() != 11 || strCPF.matches("(\\d)\\1{10}")) {
+            return false;
+        }
+
+        try {
+            int soma = 0;
+            for (int i = 0; i < 9; i++) {
+                soma += (strCPF.charAt(i) - '0') * (10 - i);
+            }
+            int dig1 = 11 - (soma % 11);
+            if (dig1 >= 10) dig1 = 0;
+
+            soma = 0;
+            for (int i = 0; i < 10; i++) {
+                soma += (strCPF.charAt(i) - '0') * (11 - i);
+            }
+            int dig2 = 11 - (soma % 11);
+            if (dig2 >= 10) dig2 = 0;
+
+            return dig1 == (strCPF.charAt(9) - '0') && dig2 == (strCPF.charAt(10) - '0');
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    // retorna a data no formato padrão do MySQL
+    public String converteData(String dataBR) {
+        try {
+            DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                    .withResolverStyle(ResolverStyle.STRICT); // serve para recusar 31/02/2000
+            LocalDate dtNascConvertida = LocalDate.parse(dataBR, formatoBR);
+
+            if (dtNascConvertida.isAfter(LocalDate.now())) {
+                return null; // impede data no futuro
+            }
+            return dtNascConvertida.toString(); // já sai como padrão do MySQL
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+    
     public void fazCadastro() {
         String sql = "INSERT INTO `dbaustra`.`t_usuarios` (`cdCPF`, `dsNome`, `dsEmail`, `dsSenha`, "
-                + "`dtNascimento`, `flNota`) VALUES (?, ?, ?, ?, ?, ?);";
+                + "`dtNascimento`, `dbNota`) VALUES (?, ?, ?, ?, ?, ?);";
         String strCPF = txtCPF.getText();
         String strNome = txtNome.getText();
         String strEmail= txtEmail.getText();
@@ -36,23 +87,70 @@ public class TelaCadastroPerfil extends javax.swing.JFrame {
         if (strCPF.isEmpty() || strNome.isEmpty() || strEmail.isEmpty() || strSenha.isEmpty() ||
             strSenhaCon.isEmpty() || strDtNasc.isEmpty()){
             //Validação
-            JOptionPane.showMessageDialog(null, "Campos OBRIGATÓRIOS NÃO informados!");
-            if (strSenha != strSenha) {
-                JOptionPane.showMessageDialog(null, "As senhas não estão iguais!");
-                txtSenha.setText("");
-                txtSenhaCon.setText("");
-            }
-            //CONFERÊNCIA DOS REQUISITOS DA SENHA
+            JOptionPane.showMessageDialog(null, "Campos OBRIGATÓRIOS NÃO informados!");   
+        }
+        
+        if (!validaEmail(strEmail)){
+            JOptionPane.showMessageDialog(null, "Email inválido! Insira um email correto.");
+            txtEmail.setText("");
+        }
+        
+        if (!validaCPF(strCPF)) {
+        JOptionPane.showMessageDialog(this, "CPF inválido!");
+        txtCPF.setText("");
+        }
+        
+        String dataBanco = converteData(strDtNasc);
+        if (dataBanco == null) {
+        JOptionPane.showMessageDialog(this, "Data de nascimento inválida! Use o formato dd/mm/aaaa");
+        txtDtNasc.requestFocus();
+        return;
+        }
+    
+        if (!strSenha.contentEquals(strSenhaCon)) {
+            JOptionPane.showMessageDialog(null, "As senhas não estão iguais!");
+            txtSenha.setText("");
+            txtSenhaCon.setText("");
+        }
+        
+        if (strSenha.length() < 8){
+            JOptionPane.showMessageDialog(null, "A sua senha tem menos de 8 caracteres!");
+            txtSenha.setText("");
+            txtSenhaCon.setText("");
+        }
+        
+        if (!strSenha.matches(".*[A-Z].*")){
+            JOptionPane.showMessageDialog(null, "A sua senha não tem ao menos um caracter maiúsculo!");
+            txtSenha.setText("");
+            txtSenhaCon.setText("");
+        }
+        
+        if (!strSenha.matches(".*[a-z].*")){
+            JOptionPane.showMessageDialog(null, "A sua senha não tem ao menos um caracter minúsculo!");
+            txtSenha.setText("");
+            txtSenhaCon.setText("");
+        }
+        
+        if (!strSenha.matches(".*[0-9].*")){
+            JOptionPane.showMessageDialog(null, "A sua senha não tem ao menos um número!");
+            txtSenha.setText("");
+            txtSenhaCon.setText("");
+        }
+        
+        if (!strSenha.matches(".*[^A-Za-z0-9].*")){
+            JOptionPane.showMessageDialog(null, "A sua senha não tem ao menos um caracter especial!");
+            txtSenha.setText("");
+            txtSenhaCon.setText("");
         }else {
             try {
                 pst = conexao.prepareStatement(sql);
                 //Preparação do comando para definir os valores
-                pst.setString(1,strCPF); //1 = cdCPF
+                pst.setString(1,strCPF.replaceAll("\\D", "")); //1 = cdCPF
                 pst.setString(2,strNome); //2 = dsNome
                 pst.setString(3,strEmail); //3 = dsEmail
                 pst.setString(4,strSenha); //4 = dsSenha
-                pst.setString(5,strDtNasc); //5 = dtNascimento
-                pst.setDouble(6, 5.0);
+                pst.setString(5,dataBanco); //5 = dtNascimento
+                pst.setDouble(6, 5.0); //6 = dbNota
                 //Determinação se a inclusão funcionou
                 int flagCadastro = pst.executeUpdate();
                 if (flagCadastro > 0){

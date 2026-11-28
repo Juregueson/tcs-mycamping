@@ -4,6 +4,9 @@
  */
 package ProjetoTCS;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ALUNO
@@ -12,9 +15,62 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastroPonto.class.getName());
 
-    /**
-     * Creates new form TelaCadastroPonto
-     */
+    Connection conexao = null; //variável da conexão
+    PreparedStatement pst = null; //variável que pega os comandos e executa
+    ResultSet rs = null; //variável que pega o resultado do comando
+    
+    public void fazCadastro() {
+        String sql = "INSERT INTO `dbaustra`.`t_pontos` (`t_usuarios_cdUsuarioPK`, `cdCNPJ`, `dsNome`, `dsEndereco`, `dsCaracteristicas`, `dsDescricao`, `dbNota`, `nmContato`, `bnAgendamento`) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String strCNPJ = txtCNPJ.getText();
+        String strNome = txtNome.getText();
+        String strLocalizacao = txtLocalizacao.getText();
+        // PEGAR O VALOR DA LISTA E DEIXAR EM STRING(?) String strCaracteristicas= lstCaracteristicas.getText();
+        String strDescricao = txaDescricao.getText();
+        String strContato = txtContato.getText();
+        // DEFINIR COMO PEGAR O VALOR BOOLEANO String boolAgendamento = 
+        
+        if (strCNPJ.isEmpty() || strNome.isEmpty() || strLocalizacao.isEmpty() || //strCaracteristicas.isEmpty() ||
+            strDescricao.isEmpty() || strContato.isEmpty()){
+            //Validação
+            JOptionPane.showMessageDialog(null, "Campos OBRIGATÓRIOS NÃO informados!");   
+        }
+        
+        
+        //if (!validaCNPJ(strCNPJ)) {
+        //JOptionPane.showMessageDialog(this, "CPF inválido!");
+        //txtCNPJ.setText("");
+        //}
+    
+        else {
+            try {
+                pst = conexao.prepareStatement(sql);
+                //Preparação do comando para definir os valores
+                // pst.setString(1, PEGAR A CHAVE ESTRANGEIRA DO USUÁRIO QUE FEZ CADASTRO); //1 = t_usuarios_cdUsuarioPK
+                pst.setString(2,strCNPJ.replaceAll("\\D", "")); //2 = cdCNPJ
+                pst.setString(3,strNome); //3 = dsNome
+                pst.setString(4,strLocalizacao); //4 dsEndereco
+                //COLOCAR AS INFORMAÇÕES DA LISTA NO BANCO pst.setString(5,strCaracteristicas); //5 = dsCaracteristicas
+                pst.setString(6,strDescricao); //6 = dsDescricao
+                pst.setDouble(7, 5.0); //7 = dbNota
+                pst.setString(8, strContato); //8 = nmContato
+                //pst.setBoolean(9, boolAgendamento); //9 = bnAgendamento
+                //Determinação se a inclusão funcionou
+                //pst. CONSEGUIR INSERIR IMAGEM NO BANCO
+                int flagCadastro = pst.executeUpdate();
+                if (flagCadastro > 0){
+                    JOptionPane.showMessageDialog(this, "Seu cadastro foi realizado com sucesso! Seu ponto está disponível para consulta");
+                    this.dispose();
+                }else {
+                    JOptionPane.showMessageDialog(this, "Houve um erro na inclusão dos dados no banco.");
+                }
+            }catch(Exception varERRO) {
+                JOptionPane.showMessageDialog(this, "Erro no banco de dados nessa tela: " +varERRO.toString());
+                System.out.println("Erro no banco de dados nessa tela: " +varERRO.toString());
+            }
+        }
+    }
+    
     public TelaCadastroPonto() {
         initComponents();
         scpCadastroPonto.getVerticalScrollBar().setUnitIncrement(16);
@@ -33,7 +89,6 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         pnCadastroPonto = new javax.swing.JPanel();
         txtLocalizacao = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
         txtCNPJ = new javax.swing.JTextField();
         txtContato = new javax.swing.JTextField();
         btnRetornar = new javax.swing.JButton();
@@ -42,17 +97,16 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         txaDescricao = new javax.swing.JTextArea();
         scpCaracteristicas = new javax.swing.JScrollPane();
         lstCaracteristicas = new javax.swing.JList<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        ckbAgendamento = new javax.swing.JCheckBox();
         lblDescricao = new javax.swing.JLabel();
         lblContato = new javax.swing.JLabel();
-        lblDescricao2 = new javax.swing.JLabel();
+        lblTFotos = new javax.swing.JLabel();
         lblDescricao1 = new javax.swing.JLabel();
         lblMapa = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblLocalizacao = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
         lblCNPJ = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblFotos = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblFundo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
@@ -85,13 +139,6 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         txtNome.addActionListener(this::txtNomeActionPerformed);
         pnCadastroPonto.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 380, 50));
 
-        txtEmail.setBackground(new java.awt.Color(252, 247, 232));
-        txtEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEmail.setText("Insira o E-mail relacionado ao local");
-        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtEmail.addActionListener(this::txtEmailActionPerformed);
-        pnCadastroPonto.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 380, 50));
-
         txtCNPJ.setBackground(new java.awt.Color(252, 247, 232));
         txtCNPJ.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCNPJ.setText("Insira seu CNPJ");
@@ -104,18 +151,18 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         txtContato.setText("Insira o contato relacionado ao local");
         txtContato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         txtContato.addActionListener(this::txtContatoActionPerformed);
-        pnCadastroPonto.add(txtContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 380, 50));
+        pnCadastroPonto.add(txtContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 380, 50));
 
         btnRetornar.setBackground(new java.awt.Color(252, 247, 232));
         btnRetornar.setText("Retornar");
         btnRetornar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         btnRetornar.addActionListener(this::btnRetornarActionPerformed);
-        pnCadastroPonto.add(btnRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 90, 30));
+        pnCadastroPonto.add(btnRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 18, 90, 30));
 
         btnCadastrar.setBackground(new java.awt.Color(245, 122, 0));
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        pnCadastroPonto.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1110, 260, 60));
+        pnCadastroPonto.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1010, 260, 60));
 
         scpDescricao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -128,7 +175,7 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         txaDescricao.setBorder(null);
         scpDescricao.setViewportView(txaDescricao);
 
-        pnCadastroPonto.add(scpDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 380, 330));
+        pnCadastroPonto.add(scpDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 380, 330));
 
         scpCaracteristicas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -141,32 +188,33 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         });
         scpCaracteristicas.setViewportView(lstCaracteristicas);
 
-        pnCadastroPonto.add(scpCaracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 380, 330));
+        pnCadastroPonto.add(scpCaracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, 380, 330));
 
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("O seu ponto vai ter agendamento?");
-        pnCadastroPonto.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 910, 320, 40));
+        ckbAgendamento.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ckbAgendamento.setForeground(new java.awt.Color(255, 255, 255));
+        ckbAgendamento.setText("O seu ponto vai ter agendamento?");
+        ckbAgendamento.addActionListener(this::ckbAgendamentoActionPerformed);
+        pnCadastroPonto.add(ckbAgendamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 810, 320, 40));
 
         lblDescricao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDescricao.setForeground(new java.awt.Color(255, 255, 255));
         lblDescricao.setText("Características do seu ponto:");
-        pnCadastroPonto.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 450, -1, -1));
+        pnCadastroPonto.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, -1, -1));
 
         lblContato.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblContato.setForeground(new java.awt.Color(255, 255, 255));
         lblContato.setText("Contato:");
-        pnCadastroPonto.add(lblContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+        pnCadastroPonto.add(lblContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
-        lblDescricao2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblDescricao2.setForeground(new java.awt.Color(255, 255, 255));
-        lblDescricao2.setText("Fotos:");
-        pnCadastroPonto.add(lblDescricao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 820, -1, -1));
+        lblTFotos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTFotos.setForeground(new java.awt.Color(255, 255, 255));
+        lblTFotos.setText("Fotos:");
+        pnCadastroPonto.add(lblTFotos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 720, -1, -1));
 
         lblDescricao1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDescricao1.setForeground(new java.awt.Color(255, 255, 255));
         lblDescricao1.setText("Descrição do seu ponto:");
-        pnCadastroPonto.add(lblDescricao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, -1, -1));
+        pnCadastroPonto.add(lblDescricao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
 
         lblMapa.setText("MAPA");
         lblMapa.setOpaque(true);
@@ -182,19 +230,14 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         lblLocalizacao.setText("Localização");
         pnCadastroPonto.add(lblLocalizacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
 
-        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
-        lblEmail.setText("E-mail:");
-        pnCadastroPonto.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
-
         lblCNPJ.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCNPJ.setForeground(new java.awt.Color(255, 255, 255));
         lblCNPJ.setText("CNPJ:");
         pnCadastroPonto.add(lblCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
 
-        jLabel1.setText("INSERÇÃO DAS FOTOS");
-        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnCadastroPonto.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 850, 380, 270));
+        lblFotos.setText("INSERÇÃO DAS FOTOS");
+        lblFotos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnCadastroPonto.add(lblFotos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 750, 380, 270));
 
         lblTitulo.setBackground(new java.awt.Color(245, 122, 0));
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -247,10 +290,6 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
     private void btnRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetornarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRetornarActionPerformed
@@ -262,6 +301,11 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
     private void txtContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContatoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContatoActionPerformed
+
+    private void ckbAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbAgendamentoActionPerformed
+        // TODO add your handling code here:
+        boolean boolAgendamento = true;
+    }//GEN-LAST:event_ckbAgendamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,18 +336,17 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnRetornar;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JCheckBox ckbAgendamento;
     private javax.swing.JLabel lblCNPJ;
     private javax.swing.JLabel lblContato;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblDescricao1;
-    private javax.swing.JLabel lblDescricao2;
-    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblFotos;
     private javax.swing.JLabel lblFundo;
     private javax.swing.JLabel lblLocalizacao;
     private javax.swing.JLabel lblMapa;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblTFotos;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JList<String> lstCaracteristicas;
     private javax.swing.JMenu mnMyCamping;
@@ -314,7 +357,6 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
     private javax.swing.JTextArea txaDescricao;
     private javax.swing.JTextField txtCNPJ;
     private javax.swing.JTextField txtContato;
-    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLocalizacao;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
