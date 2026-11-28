@@ -50,7 +50,7 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
                 pst.setString(2,strCNPJ.replaceAll("\\D", "")); //2 = cdCNPJ
                 pst.setString(3,strNome); //3 = dsNome
                 pst.setString(4,strLocalizacao); //4 dsEndereco
-                //COLOCAR AS INFORMAÇÕES DA LISTA NO BANCO pst.setString(5,strCaracteristicas); //5 = dsCaracteristicas
+                //COLOCAR AS INFORMAÇÕES SELECIONADAS DA LISTA NO BANCO pst.setString(5,strCaracteristicas); //5 = dsCaracteristicas
                 pst.setString(6,strDescricao); //6 = dsDescricao
                 pst.setDouble(7, 5.0); //7 = dbNota
                 pst.setString(8, strContato); //8 = nmContato
@@ -114,7 +114,6 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de ponto");
-        setPreferredSize(new java.awt.Dimension(900, 1050));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scpCadastroPonto.setPreferredSize(new java.awt.Dimension(900, 690));
@@ -168,7 +167,7 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
 
         txaDescricao.setBackground(new java.awt.Color(252, 247, 232));
         txaDescricao.setColumns(20);
-        txaDescricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txaDescricao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txaDescricao.setLineWrap(true);
         txaDescricao.setRows(5);
         txaDescricao.setText("Insira aqui a descrição de como seu ponto é, o que possui, etc, que atraia as pessoas para o seu local\n");
@@ -180,9 +179,9 @@ public class TelaCadastroPonto extends javax.swing.JFrame {
         scpCaracteristicas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         lstCaracteristicas.setBackground(new java.awt.Color(252, 247, 232));
-        lstCaracteristicas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lstCaracteristicas.setFont(new java.awt.Font("Segoe UI", 1, 21)); // NOI18N
         lstCaracteristicas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Permite barracas", "Energia elétrica", "Churrasqueira", "Banheiros", "Estacionamento", "Permite animais", "Proximidade a rios/cachoeiras", "Alimentação", "Passeios/trilhas", "Possui Wifi", "Possui sinal de rede", "Pesca" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
